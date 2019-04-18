@@ -1,5 +1,3 @@
-cmake_minimum_required(VERSION 3.13)
-
 set(lpc54018_dir "${AFR_VENDORS_DIR}/nxp/LPC54018")
 set(lpc54018iotmodule_dir "${AFR_VENDORS_DIR}/nxp/boards/lpc54018iotmodule")
 
@@ -89,7 +87,7 @@ target_compile_options(
     AFR::compiler::mcu_port        
     INTERFACE
         ${common_flags}
-        $<$<NOT:$<COMPILE_LANGUAGE:C>>:${asm_flags}>
+        $<$<COMPILE_LANGUAGE:ASM>:${asm_flags}>
 )
 
 # Linker flags
@@ -245,14 +243,13 @@ target_sources(
     INTERFACE 
         "${lpc54018_ports_dir}/pkcs11/aws_pkcs11_pal.c"
         "${lpc54018_ports_dir}/pkcs11/hw_poll.c"
-        "${AFR_MODULES_PORTS_DIR}/pkcs11/mbedtls/aws_pkcs11_mbedtls.c"
 )
 
-# Link to AFR::pkcs11_mbedtls if you want to use default implementation based on mbedtls.
 target_link_libraries(
     AFR::pkcs11::mcu_port
     INTERFACE 
         3rdparty::mbedtls
+        AFR::pkcs11_mbedtls
         AFR::crypto
 )
 
