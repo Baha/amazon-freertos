@@ -1,0 +1,4 @@
+jobos: ubuntu16
+cbmcflags: '=--object-bits;7;--32;--bounds-check;--pointer-check;--nondet-static='
+goto: SendEventToIPTask.goto
+expected: SUCCESSFUL
