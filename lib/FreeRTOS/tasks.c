@@ -331,7 +331,8 @@ typedef tskTCB TCB_t;
 
 /*lint -save -e956 A manual analysis and inspection has been used to determine
 which static variables must be declared volatile. */
-PRIVILEGED_DATA TCB_t * volatile pxCurrentTCB = NULL;
+// PRIVILEGED_DATA TCB_t * volatile pxCurrentTCB = NULL;
+PRIVILEGED_DATA TCB_t * pxCurrentTCB = NULL;
 
 /* Lists for ready and blocked tasks. --------------------
 xDelayedTaskList1 and xDelayedTaskList2 could be move to function scople but
@@ -340,8 +341,10 @@ the static qualifier. */
 PRIVILEGED_DATA static List_t pxReadyTasksLists[ configMAX_PRIORITIES ];/*< Prioritised ready tasks. */
 PRIVILEGED_DATA static List_t xDelayedTaskList1;						/*< Delayed tasks. */
 PRIVILEGED_DATA static List_t xDelayedTaskList2;						/*< Delayed tasks (two lists are used - one for delays that have overflowed the current tick count. */
-PRIVILEGED_DATA static List_t * volatile pxDelayedTaskList;				/*< Points to the delayed task list currently being used. */
-PRIVILEGED_DATA static List_t * volatile pxOverflowDelayedTaskList;		/*< Points to the delayed task list currently being used to hold tasks that have overflowed the current tick count. */
+// PRIVILEGED_DATA static List_t * volatile pxDelayedTaskList;				/*< Points to the delayed task list currently being used. */
+PRIVILEGED_DATA static List_t * pxDelayedTaskList;				/*< Points to the delayed task list currently being used. */
+// PRIVILEGED_DATA static List_t * volatile pxOverflowDelayedTaskList;		/*< Points to the delayed task list currently being used to hold tasks that have overflowed the current tick count. */
+PRIVILEGED_DATA static List_t * pxOverflowDelayedTaskList;
 PRIVILEGED_DATA static List_t xPendingReadyList;						/*< Tasks that have been readied while the scheduler was suspended.  They will be moved to the ready list when the scheduler is resumed. */
 
 #if( INCLUDE_vTaskDelete == 1 )
@@ -434,7 +437,8 @@ PRIVILEGED_DATA static volatile UBaseType_t uxSchedulerSuspended	= ( UBaseType_t
  * Utility to ready all the lists used by the scheduler.  This is called
  * automatically upon the creation of the first task.
  */
-static void prvInitialiseTaskLists( void ) PRIVILEGED_FUNCTION;
+// static void prvInitialiseTaskLists( void ) PRIVILEGED_FUNCTION;
+void prvInitialiseTaskLists( void ) PRIVILEGED_FUNCTION;
 
 /*
  * The idle task, which as all tasks is implemented as a never ending loop.
@@ -3542,7 +3546,8 @@ static portTASK_FUNCTION( prvIdleTask, pvParameters )
 #endif /* portUSING_MPU_WRAPPERS */
 /*-----------------------------------------------------------*/
 
-static void prvInitialiseTaskLists( void )
+// static void prvInitialiseTaskLists( void )
+void prvInitialiseTaskLists( void )
 {
 UBaseType_t uxPriority;
 
