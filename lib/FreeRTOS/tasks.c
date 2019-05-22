@@ -3736,17 +3736,18 @@ static void prvCheckTasksWaitingTermination( void )
 
 	static configSTACK_DEPTH_TYPE prvTaskCheckFreeStackSpace( const uint8_t * pucStackByte )
 	{
-	uint32_t ulCount = 0U;
+		return 10;
+	// uint32_t ulCount = 0U;
 
-		while( *pucStackByte == ( uint8_t ) tskSTACK_FILL_BYTE )
-		{
-			pucStackByte -= portSTACK_GROWTH;
-			ulCount++;
-		}
+	// 	while( *pucStackByte == ( uint8_t ) tskSTACK_FILL_BYTE )
+	// 	{
+	// 		pucStackByte -= portSTACK_GROWTH;
+	// 		ulCount++;
+	// 	}
 
-		ulCount /= ( uint32_t ) sizeof( StackType_t ); /*lint !e961 Casting is not redundant on smaller architectures. */
+	// 	ulCount /= ( uint32_t ) sizeof( StackType_t ); /*lint !e961 Casting is not redundant on smaller architectures. */
 
-		return ( configSTACK_DEPTH_TYPE ) ulCount;
+	// 	return ( configSTACK_DEPTH_TYPE ) ulCount;
 	}
 
 #endif /* ( ( configUSE_TRACE_FACILITY == 1 ) || ( INCLUDE_uxTaskGetStackHighWaterMark == 1 ) || ( INCLUDE_uxTaskGetStackHighWaterMark2 == 1 ) ) */
